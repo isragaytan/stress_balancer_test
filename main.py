@@ -101,7 +101,7 @@ def rad_test(arr_macs):
     
     stream = os.popen('radtest -x F2-C0-97-A0-52-C5 F2-C0-97-A0-52-C5 52.70.127.105 10 z0w2sIF06m')
     output = stream.read()
-    output
+    print(output)
     
     # for i in arr_macs:
         
