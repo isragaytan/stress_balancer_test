@@ -96,7 +96,7 @@ def rad_test(arr_macs):
     print("IN RAD TEST",arr_macs)
     for i in arr_macs:
         
-        process = subprocess.Popen(['radtest', '-x F2-C0-97-A0-52-C5 F2-C0-97-A0-52-C5 52.70.127.105 10 z0w2sIF06m '], 
+        process = subprocess.Popen(['radtest -x F2-C0-97-A0-52-C5 F2-C0-97-A0-52-C5 52.70.127.105 10 z0w2sIF06m'], 
                             stdout=subprocess.PIPE,
                             universal_newlines=True)
 
