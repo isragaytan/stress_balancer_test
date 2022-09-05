@@ -104,6 +104,8 @@ def rad_test(arr_macs):
     #print(output)
     
     for i in arr_macs:
+        str_execute = "radtest -x " + i + " " + i + "10 z0w2sIF06m"
+        print(str_execute) 
         stream = os.popen('radtest -x ' + i + " " + i + '10 z0w2sIF06m')
         output = stream.read()
         print(output)
