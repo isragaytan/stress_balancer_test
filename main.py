@@ -99,11 +99,14 @@ def rad_test(arr_macs):
                             #stdout=subprocess.PIPE,
                             #universal_newlines=True)
     
-    stream = os.popen('radtest -x F2-C0-97-A0-52-C5 F2-C0-97-A0-52-C5 52.70.127.105 10 z0w2sIF06m')
-    output = stream.read()
-    print(output)
+    #stream = os.popen('radtest -x F2-C0-97-A0-52-C5 F2-C0-97-A0-52-C5 52.70.127.105 10 z0w2sIF06m')
+    #output = stream.read()
+    #print(output)
     
-    # for i in arr_macs:
+    for i in arr_macs:
+        stream = os.popen('radtest -x ' + i + " " + i + '10 z0w2sIF06m')
+        output = stream.read()
+        print(output)
         
     #     process = subprocess.Popen(['radtest','-x','F2-C0-97-A0-52-C5 F2-C0-97-A0-52-C5 52.70.127.105 10 z0w2sIF06m'], 
     #                         stdout=subprocess.PIPE,
