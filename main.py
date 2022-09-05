@@ -94,23 +94,28 @@ def get_time_block(str_date1):
 #radtest -x  F2-C0-97-A0-52-C5 F2-C0-97-A0-52-C5 52.70.127.105 10 z0w2sIF06m
 def rad_test(arr_macs):
     print("IN RAD TEST",arr_macs)
-    for i in arr_macs:
-        
-        process = subprocess.Popen(['radtest','-x','F2-C0-97-A0-52-C5 F2-C0-97-A0-52-C5 52.70.127.105 10 z0w2sIF06m'], 
+    
+    process = subprocess.Popen(['radtest','-x','F2-C0-97-A0-52-C5 F2-C0-97-A0-52-C5 52.70.127.105 10 z0w2sIF06m'], 
                             stdout=subprocess.PIPE,
                             universal_newlines=True)
+    
+    # for i in arr_macs:
+        
+    #     process = subprocess.Popen(['radtest','-x','F2-C0-97-A0-52-C5 F2-C0-97-A0-52-C5 52.70.127.105 10 z0w2sIF06m'], 
+    #                         stdout=subprocess.PIPE,
+    #                         universal_newlines=True)
 
-        while True:
-            output = process.stdout.readline()
-            print(output.strip())
-            # Do something else
-            return_code = process.poll()
-            if return_code is not None:
-                print('RETURN CODE', return_code)
-                # Process has finished, read rest of the output 
-                for output in process.stdout.readlines():
-                    print(output.strip())
-                break
+    #     while True:
+    #         output = process.stdout.readline()
+    #         print(output.strip())
+    #         # Do something else
+    #         return_code = process.poll()
+    #         if return_code is not None:
+    #             print('RETURN CODE', return_code)
+    #             # Process has finished, read rest of the output 
+    #             for output in process.stdout.readlines():
+    #                 print(output.strip())
+    #             break
 
 if __name__ == "__main__":
     get_first_timestamp()
