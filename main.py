@@ -1,9 +1,9 @@
 from datetime import datetime
 from datetime import timedelta
 import os
+import subprocess
 
 import pymysql
-import os 
 import pandas as pd
 from datetime import timedelta
 
@@ -74,13 +74,13 @@ def get_time_block(str_date1):
     arr_dates = []
     try:
         
-        sql ="select fecha from pre_auth where fecha >= '%s' limit 50" %(str_date1)
+        sql ="select mac from pre_auth where fecha >= '%s' limit 50" %(str_date1)
         print("SQL", sql)
     
-        valid_dates = pd.read_sql(sql,cnx)
+        valid_macs = pd.read_sql(sql,cnx)
         
        #print(valid_dates)
-        for j in valid_dates['fecha']:
+        for j in valid_macs['mac']:
            print(str(j))
            arr_dates.append(str(j))
         
@@ -91,8 +91,26 @@ def get_time_block(str_date1):
     return arr_dates
         
 #Rad test caller
-def rad_test(arr_dates):
-    print("IN RAD TEST",arr_dates)
+#radtest -x  F2-C0-97-A0-52-C5 F2-C0-97-A0-52-C5 52.70.127.105 10 z0w2sIF06m
+def rad_test(arr_macs):
+    print("IN RAD TEST",arr_macs)
+    for i in arr_macs:
+        
+        process = subprocess.Popen(['radtest', '-x F2-C0-97-A0-52-C5 F2-C0-97-A0-52-C5 52.70.127.105 10 z0w2sIF06m '], 
+                            stdout=subprocess.PIPE,
+                            universal_newlines=True)
+
+        while True:
+            output = process.stdout.readline()
+            print(output.strip())
+            # Do something else
+            return_code = process.poll()
+            if return_code is not None:
+                print('RETURN CODE', return_code)
+                # Process has finished, read rest of the output 
+                for output in process.stdout.readlines():
+                    print(output.strip())
+                break
 
 if __name__ == "__main__":
     get_first_timestamp()
