@@ -73,7 +73,9 @@ def get_first_timestamp():
         
         start = time.perf_counter()
         
-        processes = [multiprocessing.Process(target=rad_test, args=[arr_macs]) for arr_macs in arr_macs_hard]
+        #processes = [multiprocessing.Process(target=rad_test, args=[arr_macs]) for arr_macs in arr_macs_hard]
+        
+        processes = [multiprocessing.Process(target=rad_test, args=[arr_macs]) for arr_macs in arr_tb]
 
         # start the processes
         for process in processes:
