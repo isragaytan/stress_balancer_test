@@ -64,7 +64,7 @@ def get_first_timestamp():
     
         macs = pd.read_sql(sql,cnx)
         
-        print(macs["fecha"][0])
+        #print(macs["fecha"][0])
         
         
         f_time = get_last_date(macs["fecha"][0])
@@ -125,9 +125,6 @@ def get_time_block(str_date1):
         print(ex)
         
     return arr_dates
-
-
-        
 
     
 
