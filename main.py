@@ -1,7 +1,8 @@
 from datetime import datetime
 from datetime import timedelta
 import os
-import subprocess
+import multiprocessing
+import time
 
 import pymysql
 import pandas as pd
@@ -50,7 +51,21 @@ def get_first_timestamp():
         
         arr_tb =get_time_block(f_time)
         
-        rad_test(arr_tb)
+        
+        processes = [multiprocessing.Process(target=rad_test, args=[arr_tb]) for filename in arr_tb]
+
+        # start the processes
+        for process in processes:
+            process.start()
+
+        # wait for completion
+        for process in processes:
+            process.join()
+
+        finish = time.perf_counter()
+        
+        print(f'It took {finish-start: .2f} second(s) to finish')
+        #rad_test(arr_tb)
         
     except Exception as ex:
         
