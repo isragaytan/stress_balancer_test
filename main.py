@@ -87,7 +87,9 @@ def get_first_timestamp():
 
         finish = time.perf_counter()
         
-        print(f'It took {finish-start: .2f} second(s) to finish')
+        len_proc = len(arr_tb)
+        
+        print(f'Taked  {finish-start: .2f} second(s) to finish and processed ' ,str(len_proc))
         #rad_test(arr_tb)
         
     except Exception as ex:
