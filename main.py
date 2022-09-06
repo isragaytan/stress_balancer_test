@@ -35,6 +35,9 @@ cnx = pymysql.connect(host=DB_HOST_WIWI_MS,
                              connect_timeout=3153600,read_timeout=3153600,write_timeout=3153600
                              )
 
+#MAC TESTS
+arr_macs = ["4C-91-0C-5A-0E-6C","DC-BF-E9-2D-09-50","C2-09-89-CF-C8-28","44-C7-FC-FB-DD-8E","B8-94-E7-D1-95-6A"]
+
 #Get valid ids
 def get_first_timestamp():
     print("Trying to get valid macs")
@@ -53,7 +56,7 @@ def get_first_timestamp():
         
         start = time.perf_counter()
         
-        processes = [multiprocessing.Process(target=rad_test, args=[arr_tb]) for filename in arr_tb]
+        processes = [multiprocessing.Process(target=rad_test, args=[arr_macs]) for filename in arr_macs]
 
         # start the processes
         for process in processes:
@@ -105,11 +108,20 @@ def get_time_block(str_date1):
         print(ex)
         
     return arr_dates
+
+
         
 #Rad test caller
 #radtest -x  F2-C0-97-A0-52-C5 F2-C0-97-A0-52-C5 52.70.127.105 10 z0w2sIF06m
 def rad_test(arr_macs):
+    
     print("IN RAD TEST",arr_macs)
+    
+    str_execute = "radtest -x " + arr_macs + " " + arr_macs + " 52.70.127.105 10 z0w2sIF06m"
+    print(str_execute) 
+    stream = os.popen('radtest -x ' + arr_macs + " " + arr_macs + ' 52.70.127.105 10 z0w2sIF06m')
+    output = stream.read()
+    print(output)
     
     #process = subprocess.Popen(['radtest -x F2-C0-97-A0-52-C5 F2-C0-97-A0-52-C5 52.70.127.105 10 z0w2sIF06m'], 
                             #stdout=subprocess.PIPE,
@@ -120,12 +132,8 @@ def rad_test(arr_macs):
     #output = stream.read()
     #print(output)
     
-    for i in arr_macs:
-        str_execute = "radtest -x " + i + " " + i + " 52.70.127.105 10 z0w2sIF06m"
-        print(str_execute) 
-        stream = os.popen('radtest -x ' + i + " " + i + ' 52.70.127.105 10 z0w2sIF06m')
-        output = stream.read()
-        print(output)
+
+     
         
     #     process = subprocess.Popen(['radtest','-x','F2-C0-97-A0-52-C5 F2-C0-97-A0-52-C5 52.70.127.105 10 z0w2sIF06m'], 
     #                         stdout=subprocess.PIPE,
