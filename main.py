@@ -51,6 +51,7 @@ def get_first_timestamp():
         
         arr_tb =get_time_block(f_time)
         
+        start = time.perf_counter()
         
         processes = [multiprocessing.Process(target=rad_test, args=[arr_tb]) for filename in arr_tb]
 
