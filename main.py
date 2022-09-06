@@ -36,7 +36,24 @@ cnx = pymysql.connect(host=DB_HOST_WIWI_MS,
                              )
 
 #MAC TESTS
-arr_macs = ["4C-91-0C-5A-0E-6C","DC-BF-E9-2D-09-50","C2-09-89-CF-C8-28","44-C7-FC-FB-DD-8E","B8-94-E7-D1-95-6A"]
+arr_macs_hard= ["4C-91-0C-5A-0E-6C","DC-BF-E9-2D-09-50","C2-09-89-CF-C8-28","44-C7-FC-FB-DD-8E","B8-94-E7-D1-95-6A"]
+
+#Rad test caller
+#radtest -x  F2-C0-97-A0-52-C5 F2-C0-97-A0-52-C5 52.70.127.105 10 z0w2sIF06m
+def rad_test(arr_macs):
+    
+    print("IN RAD TEST",arr_macs)
+    
+    str_execute = "radtest -x " + arr_macs + " " + arr_macs + " 52.70.127.105 10 z0w2sIF06m"
+    print(str_execute) 
+    stream = os.popen('radtest -x ' + arr_macs + " " + arr_macs + ' 52.70.127.105 10 z0w2sIF06m')
+    output = stream.read()
+    print(output)
+    
+    #stream = os.popen('radtest -x F2-C0-97-A0-52-C5 F2-C0-97-A0-52-C5 52.70.127.105 10 z0w2sIF06m')
+                        #radtest -x B2-10-F8-65-83-23 B2-10-F8-65-83-2310 z0w2sIF06m
+    #output = stream.read()
+    #print(output)
 
 #Get valid ids
 def get_first_timestamp():
@@ -56,7 +73,7 @@ def get_first_timestamp():
         
         start = time.perf_counter()
         
-        processes = [multiprocessing.Process(target=rad_test, args=[arr_macs]) for filename in arr_macs]
+        processes = [multiprocessing.Process(target=rad_test, args=[arr_macs]) for arr_macs in arr_macs_hard]
 
         # start the processes
         for process in processes:
@@ -111,45 +128,8 @@ def get_time_block(str_date1):
 
 
         
-#Rad test caller
-#radtest -x  F2-C0-97-A0-52-C5 F2-C0-97-A0-52-C5 52.70.127.105 10 z0w2sIF06m
-def rad_test(arr_macs):
-    
-    print("IN RAD TEST",arr_macs)
-    
-    str_execute = "radtest -x " + arr_macs + " " + arr_macs + " 52.70.127.105 10 z0w2sIF06m"
-    print(str_execute) 
-    stream = os.popen('radtest -x ' + arr_macs + " " + arr_macs + ' 52.70.127.105 10 z0w2sIF06m')
-    output = stream.read()
-    print(output)
-    
-    #process = subprocess.Popen(['radtest -x F2-C0-97-A0-52-C5 F2-C0-97-A0-52-C5 52.70.127.105 10 z0w2sIF06m'], 
-                            #stdout=subprocess.PIPE,
-                            #universal_newlines=True)
-    
-    #stream = os.popen('radtest -x F2-C0-97-A0-52-C5 F2-C0-97-A0-52-C5 52.70.127.105 10 z0w2sIF06m')
-                        #radtest -x B2-10-F8-65-83-23 B2-10-F8-65-83-2310 z0w2sIF06m
-    #output = stream.read()
-    #print(output)
-    
 
-     
-        
-    #     process = subprocess.Popen(['radtest','-x','F2-C0-97-A0-52-C5 F2-C0-97-A0-52-C5 52.70.127.105 10 z0w2sIF06m'], 
-    #                         stdout=subprocess.PIPE,
-    #                         universal_newlines=True)
-
-    #     while True:
-    #         output = process.stdout.readline()
-    #         print(output.strip())
-    #         # Do something else
-    #         return_code = process.poll()
-    #         if return_code is not None:
-    #             print('RETURN CODE', return_code)
-    #             # Process has finished, read rest of the output 
-    #             for output in process.stdout.readlines():
-    #                 print(output.strip())
-    #             break
+    
 
 if __name__ == "__main__":
     get_first_timestamp()
