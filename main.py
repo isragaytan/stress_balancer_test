@@ -114,7 +114,7 @@ def get_time_block(str_date1):
     arr_dates = []
     try:
         
-        sql ="select mac from pre_auth where fecha >= '%s' limit 50" %(str_date1)
+        sql ="select mac from pre_auth where fecha >= '%s'" %(str_date1)
         print("SQL", sql)
     
         valid_macs = pd.read_sql(sql,cnx)
