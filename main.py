@@ -44,9 +44,9 @@ def rad_test(arr_macs):
     
     print("IN RAD TEST",arr_macs)
     
-    str_execute = "radtest -x " + arr_macs + " " + arr_macs + " 52.70.127.105 10 z0w2sIF06m"
+    str_execute = "radtest -x " + arr_macs + " " + arr_macs + "  3.14.125.157 10 z0w2sIF06m"
     print(str_execute) 
-    stream = os.popen('radtest -x ' + arr_macs + " " + arr_macs + ' 52.70.127.105 10 z0w2sIF06m')
+    stream = os.popen('radtest -x ' + arr_macs + " " + arr_macs + '  3.14.125.157 10 z0w2sIF06m')
     output = stream.read()
     print(output)
     
@@ -63,6 +63,7 @@ def get_first_timestamp():
         sql ="select * from pre_auth order by fecha DESC limit 1;"
     
         macs = pd.read_sql(sql,cnx)
+        print(macs)
         
         #print(macs["fecha"][0])
         
@@ -70,6 +71,8 @@ def get_first_timestamp():
         f_time = get_last_date(macs["fecha"][0])
         
         arr_tb =get_time_block(f_time)
+
+        print(arr_tb)
         
         start = time.perf_counter()
         
